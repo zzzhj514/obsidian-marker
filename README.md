@@ -19,6 +19,7 @@ You can find the related repositories and services here:
 - [Marker API Docker Container](https://hub.docker.com/r/wirawan/marker-api) (Container for self-hosting, needs Nvidia GPU)
 - [Marker API](https://github.com/adithya-s-k/marker-api) (API for self-hosting the conversion service)
 - [MistralAI](https://console.mistral.ai/) (Free OCR API with excellent results)
+- [Mineru API](https://mineru.net/) （Free OCR API）
 
 ## 🚀 Features
 
