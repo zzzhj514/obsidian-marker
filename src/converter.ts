@@ -123,7 +123,7 @@ export abstract class BaseConverter implements Converter {
         try {
           const newFilePath = folderPath + originalFile.name;
           await app.vault.rename(originalFile, newFilePath);
-        } catch (error) {
+        } catch (error: any) {
           console.error(
             `Failed to move original file to folder: ${error.message}`,
             error
@@ -135,7 +135,7 @@ export abstract class BaseConverter implements Converter {
       if (settings.deleteOriginal) {
         await deleteOriginalFile(app, originalFile);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         'Failed to process conversion result:',
         error.message,

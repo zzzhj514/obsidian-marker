@@ -1,5 +1,5 @@
 import { Notice } from 'obsidian';
-import { MarkerSettings } from 'src/settings';
+import { MarkerSettings } from '../settings';
 
 export function checkSettings(settings: MarkerSettings): boolean {
   if (

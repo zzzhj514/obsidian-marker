@@ -104,7 +104,7 @@ export async function createImageFiles(
         );
       }
       processedImages++;
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         `Failed to process image ${imageName}:`,
         error.message,
@@ -208,7 +208,7 @@ export async function deleteOriginalFile(app: App, file: TFile) {
   try {
     await app.fileManager.trashFile(file);
     new Notice('Original PDF file deleted');
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting original file:', error);
   }
 }

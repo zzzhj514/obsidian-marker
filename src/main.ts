@@ -5,10 +5,11 @@ import { DatalabConverter } from './converters/datalabConverter';
 import { MarkerApiDockerConverter } from './converters/markerApiDocker';
 import { PythonAPIConverter } from './converters/markerPythonApi';
 import { MistralAIConverter } from './converters/mistralaiConverter';
+import { MinerUConverter } from './converters/mineruConverter';
 
 export default class Marker extends Plugin {
-  settings: MarkerSettings;
-  converter: Converter;
+  settings!: MarkerSettings;
+  converter!: Converter;
 
   async onload() {
     await this.loadSettings();
@@ -32,6 +33,9 @@ export default class Marker extends Plugin {
       case 'mistralai':
         this.converter = new MistralAIConverter();
         break;
+      case 'mineru':
+        this.converter = new MinerUConverter();
+        break;
       default:
         console.error('Invalid API endpoint setting.');
         // Default to selfhosted if invalid setting
@@ -42,7 +46,7 @@ export default class Marker extends Plugin {
   private registerFileMenuEvents() {
     // Register "Convert to MD" menu item for single PDF files
     this.registerEvent(
-      this.app.workspace.on('file-menu', (menu: Menu, file: TFile) => {
+      (this.app.workspace as any).on('file-menu', (menu: Menu, file: TFile) => {
         if (!(file instanceof TFile) || !this.isValidFile(file)) return;
         menu.addItem((item) => {
           item.setIcon('pdf-file');
@@ -57,7 +61,7 @@ export default class Marker extends Plugin {
 
     // Register "Convert to MD" menu item for multiple PDF files
     this.registerEvent(
-      this.app.workspace.on('files-menu', (menu: Menu, files: TFile[]) => {
+      (this.app.workspace as any).on('files-menu', (menu: Menu, files: TFile[]) => {
         const pdfFiles = files.filter((file) => this.isValidFile(file));
         if (pdfFiles.length === 0) return;
 

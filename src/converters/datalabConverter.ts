@@ -82,7 +82,7 @@ export class DatalabConverter extends BaseConverter {
         new Notice('Error: Missing request check URL in conversion response');
         return false;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Datalab conversion error:', error.message, error.stack);
       new Notice(
         `Datalab conversion failed: ${
@@ -106,7 +106,7 @@ export class DatalabConverter extends BaseConverter {
       let fileContent: ArrayBuffer;
       try {
         fileContent = await app.vault.readBinary(file);
-      } catch (readError) {
+      } catch (readError: any) {
         console.error(
           `Failed to read file content: ${readError.message}`,
           readError
@@ -141,7 +141,7 @@ export class DatalabConverter extends BaseConverter {
       let data: DatalabInitialResponse;
       try {
         data = response.json;
-      } catch (jsonError) {
+      } catch (jsonError: any) {
         console.error('Failed to parse Datalab API response', jsonError);
         new Notice('Error: Invalid response from Datalab API');
         return { success: false };
@@ -160,7 +160,7 @@ export class DatalabConverter extends BaseConverter {
         new Notice(`Datalab conversion failed: ${errorDetail}`);
         return { success: false };
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting conversion request:', error);
       new Notice(`Submission error: ${error.message || 'Unknown error'}`);
       return { success: false };
@@ -216,7 +216,7 @@ export class DatalabConverter extends BaseConverter {
       );
       new Notice('Datalab conversion completed successfully');
       return true;
-    } catch (pollError) {
+    } catch (pollError: any) {
       console.error(
         'Error during Datalab conversion polling:',
         pollError.message,
@@ -409,7 +409,7 @@ export class DatalabConverter extends BaseConverter {
         console.error('Error connecting to Datalab Marker API:', data);
         return false;
       }
-    } catch (error) {
+    } catch (error: any) {
       new Notice('Error connecting to Datalab Marker API');
       console.error('Error connecting to Datalab Marker API:', error);
       return false;
@@ -433,7 +433,7 @@ export class DatalabConverter extends BaseConverter {
       let data: DatalabFinalResponse;
       try {
         data = await response.json;
-      } catch (jsonError) {
+      } catch (jsonError: any) {
         console.error('Failed to parse polling response', jsonError);
         throw new Error('Invalid response format from Datalab API');
       }
@@ -463,7 +463,7 @@ export class DatalabConverter extends BaseConverter {
           // Parse response safely
           try {
             data = await response.json;
-          } catch (jsonError) {
+          } catch (jsonError: any) {
             console.error('Failed to parse polling response', jsonError);
             // Continue polling despite parse error
             continue;
@@ -485,7 +485,7 @@ export class DatalabConverter extends BaseConverter {
           if (data.error) {
             throw new Error(`API reported error: ${data.error}`);
           }
-        } catch (requestError) {
+        } catch (requestError: any) {
           console.error('Request error during polling:', requestError);
           // Continue polling despite request error
           await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait longer on error
@@ -498,7 +498,7 @@ export class DatalabConverter extends BaseConverter {
       }
 
       return data;
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         'Error during conversion polling:',
         error.message,

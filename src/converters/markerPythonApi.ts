@@ -85,7 +85,7 @@ export class PythonAPIConverter extends BaseConverter {
           console.error('Python API error response:', errorData);
           new Notice(`Python API conversion failed: ${errorMsg}`);
           return false;
-        } catch (parseErr) {
+        } catch (parseErr: any) {
           console.error(
             `Python API error: HTTP ${response.status}`,
             response.text
@@ -141,7 +141,7 @@ export class PythonAPIConverter extends BaseConverter {
           await deleteOriginalFile(app, file);
         }
         return true;
-      } catch (parseError) {
+      } catch (parseError: any) {
         console.error(
           'Error parsing Python API response:',
           parseError,
@@ -154,7 +154,7 @@ export class PythonAPIConverter extends BaseConverter {
         );
         return false;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Python API conversion error:', error.message, error.stack);
       new Notice(
         `Python API conversion failed: ${
@@ -183,7 +183,7 @@ export class PythonAPIConverter extends BaseConverter {
         new Notice(`Error connecting to Python API: ${response.status}`);
         return false;
       }
-    } catch (error) {
+    } catch (error: any) {
       new Notice('Error connecting to Python API');
       console.error('Error connecting to Python API:', error);
       return false;

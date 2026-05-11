@@ -78,7 +78,7 @@ export class MarkerApiDockerConverter extends BaseConverter {
       );
       new Notice('PDF conversion completed successfully');
       return true;
-    } catch (conversionError) {
+    } catch (conversionError: any) {
       console.error(
         'Docker API conversion failed:',
         conversionError.message,
@@ -154,7 +154,7 @@ export class MarkerApiDockerConverter extends BaseConverter {
         if (!silent) new Notice('Connection successful!');
         return true;
       }
-    } catch (error) {
+    } catch (error: any) {
       new Notice(
         `Docker API connection failed: ${error.message || 'Network error'}`
       );
@@ -170,7 +170,7 @@ export class MarkerApiDockerConverter extends BaseConverter {
     try {
       // First attempt with pdf_file field name
       return await this.attemptConversion(settings, pdfContent, 'pdf_file');
-    } catch (error) {
+    } catch (error: any) {
       // Check if the error is specifically about missing document_file
       if (
         error.message &&
@@ -184,7 +184,7 @@ export class MarkerApiDockerConverter extends BaseConverter {
             pdfContent,
             'document_file'
           );
-        } catch (retryError) {
+        } catch (retryError: any) {
           console.error(
             'Second PDF conversion attempt failed:',
             retryError.message
@@ -265,7 +265,7 @@ export class MarkerApiDockerConverter extends BaseConverter {
           .join('; ');
         console.error(`Marker API validation error: ${errorMessages}`);
         throw new Error(`Validation error: ${errorMessages}`);
-      } catch (parseError) {
+      } catch (parseError: any) {
         // If parsing fails, use generic error
         const errorMessage = response.text || `HTTP ${response.status}`;
         console.error(`Marker API error: ${errorMessage}`);

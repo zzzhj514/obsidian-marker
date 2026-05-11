@@ -107,7 +107,7 @@ export class MistralAIConverter extends BaseConverter {
       }
 
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('MistralAI conversion error:', error.message, error.stack);
       new Notice(
         `MistralAI conversion failed: ${
@@ -134,7 +134,7 @@ export class MistralAIConverter extends BaseConverter {
               'Warning: Uploaded MistralAI file may not have been deleted.'
             );
           }
-        } catch (cleanupError) {
+        } catch (cleanupError: any) {
           console.error(
             `Failed to delete uploaded MistralAI file ${uploadedFileId}:`,
             cleanupError
@@ -200,7 +200,7 @@ export class MistralAIConverter extends BaseConverter {
           processor: 'mistralai-ocr',
         },
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error parsing OCR results:', error);
       return {
         success: false,
@@ -233,7 +233,7 @@ export class MistralAIConverter extends BaseConverter {
 
       if (!silent) new Notice('Error connecting to MistralAI API');
       return false;
-    } catch (error) {
+    } catch (error: any) {
       if (!silent) {
         new Notice(`Error connecting to MistralAI API: ${error.message}`);
       }

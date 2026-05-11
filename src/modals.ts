@@ -1,7 +1,7 @@
 import { App, Modal } from 'obsidian';
 
 export class MarkerOkayCancelDialog extends Modal {
-  result: boolean;
+  result!: boolean;
   title: string;
   message: string;
   onSubmit: (result: boolean) => void;

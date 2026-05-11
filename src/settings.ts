@@ -15,6 +15,12 @@ export interface MarkerSettings {
   apiKey?: string; // Keep for backward compatibility and selfhosted/python-api
   datalabApiKey?: string; // Specific key for Datalab
   mistralaiApiKey?: string; // Specific key for MistralAI
+  mineruApiKey?: string; // API key for MinerU cloud services
+  mineruModel?: string; // Model version for MinerU (vlm/pipeline/MinerU-HTML)
+  mineruLanguage?: string; // Document language for MinerU OCR
+  mineruEnableOCR?: boolean; // Enable OCR for MinerU
+  mineruEnableFormula?: boolean; // Enable formula detection for MinerU
+  mineruEnableTable?: boolean; // Enable table detection for MinerU
   langs?: string;
   forceOCR?: boolean;
   paginate?: boolean;
@@ -42,6 +48,12 @@ export const DEFAULT_SETTINGS: MarkerSettings = {
   apiKey: '',
   datalabApiKey: '',
   mistralaiApiKey: '',
+  mineruApiKey: '',
+  mineruModel: 'vlm',
+  mineruLanguage: 'en',
+  mineruEnableOCR: false,
+  mineruEnableFormula: true,
+  mineruEnableTable: true,
   langs: 'en',
   forceOCR: false,
   paginate: false,
@@ -56,7 +68,7 @@ export const DEFAULT_SETTINGS: MarkerSettings = {
 };
 
 export class MarkerSettingTab extends PluginSettingTab {
-  plugin: Marker;
+  plugin!: Marker;
   constructor(app: App, plugin: Marker) {
     super(app, plugin);
   }
@@ -76,6 +88,7 @@ export class MarkerSettingTab extends PluginSettingTab {
           .addOption('selfhosted', 'Selfhosted')
           .addOption('python-api', 'Python API')
           .addOption('mistralai', 'MistralAI')
+          .addOption('mineru', 'MinerU')
           .setValue(this.plugin.settings.apiEndpoint)
           .onChange(async (value) => {
             this.plugin.settings.apiEndpoint = value;
